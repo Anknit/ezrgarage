@@ -7,7 +7,7 @@
 
     
     
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
@@ -17,7 +17,7 @@
     -->
 
     
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
     
 
     <style type="text/css">
@@ -73,5 +73,18 @@
     <ion-nav-view></ion-nav-view>
   </div>
 </div>
+
+<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCtc7m9sbnQ4Q7_6yzqq8BNd5qB4gt2iKU",
+    authDomain: "ezgarage-a71b7.firebaseapp.com",
+    databaseURL: "https://ezgarage-a71b7.firebaseio.com",
+    storageBucket: "ezgarage-a71b7.appspot.com",
+    messagingSenderId: "140100443788"
+  };
+  firebase.initializeApp(config);
+</script>
   </body>
 </html>
