@@ -1,179 +1,190 @@
 angular.module('ezr.routes', [])
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function ($stateProvider, $urlRouterProvider) {
 
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
-  $stateProvider
-    
-  
+    // Ionic uses AngularUI Router which uses the concept of states
+    // Learn more here: https://github.com/angular-ui/ui-router
+    // Set up the various states which the app can be in.
+    // Each state's controller can be found in controllers.js
+    $stateProvider
 
-      .state('ezrGarage.dashboard', {
-    url: '/dashboard',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/dashboard.html',
-        controller: 'dashboardCtrl'
-      }
-    }
-  })
 
-  .state('ezrGarage', {
-    url: '/menuitems',
-    templateUrl: 'templates/ezrGarage.html',
-    controller: 'ezrGarageCtrl'
-  })
 
-  .state('ezrGarage.login', {
-    url: '/login',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/login.html',
-        controller: 'loginCtrl'
-      }
-    }
-  })
+        .state('ezrGarage.dashboard', {
+        url: '/dashboard',
+        views: {
+            'side-menu21': {
+                templateUrl: 'templates/dashboard.html',
+                controller: 'dashboardCtrl'
+            }
+        }
+    })
 
-  .state('signup', {
-    url: '/signup',
-    templateUrl: 'templates/signup.html',
-    controller: 'signupCtrl'
-  })
+    .state('ezrGarage', {
+        url: '/menuitems',
+        templateUrl: 'templates/ezrGarage.html',
+        controller: 'ezrGarageCtrl'
+    })
 
-  .state('ezrGarage.settings', {
-    url: '/settings',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/settings.html',
-        controller: 'settingsCtrl'
-      }
-    }
-  })
+    .state('ezrGarage.login', {
+        url: '/login',
+        authOnly: false,
+        views: {
+            'side-menu21': {
+                templateUrl: 'templates/login.html',
+                controller: 'loginCtrl'
+            }
+        }
+    })
 
-  .state('ezrGarage.fAQs', {
-    url: '/faqs',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/fAQs.html',
-        controller: 'fAQsCtrl'
-      }
-    }
-  })
+    .state('signup', {
+        url: '/signup',
+        authOnly: false,
+        templateUrl: 'templates/signup.html',
+        controller: 'signupCtrl'
+    })
 
-  .state('ezrGarage.profile', {
-    url: '/profile',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/profile.html',
-        controller: 'profileCtrl'
-      }
-    }
-  })
+    .state('ezrGarage.settings', {
+        url: '/settings',
+        authOnly: true,
+        views: {
+            'side-menu21': {
+                templateUrl: 'templates/settings.html',
+                controller: 'settingsCtrl'
+            }
+        }
+    })
 
-  .state('ezrGarage.payment', {
-    url: '/payment',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/payment.html',
-        controller: 'paymentCtrl'
-      }
-    }
-  })
+    .state('ezrGarage.fAQs', {
+        url: '/faqs',
+        authOnly: false,
+        views: {
+            'side-menu21': {
+                templateUrl: 'templates/fAQs.html',
+                controller: 'fAQsCtrl'
+            }
+        }
+    })
 
-  .state('ezrGarage.promotions', {
-    url: '/promotions',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/promotions.html',
-        controller: 'promotionsCtrl'
-      }
-    }
-  })
+    .state('ezrGarage.profile', {
+        url: '/profile',
+        authOnly: true,
+        views: {
+            'side-menu21': {
+                templateUrl: 'templates/profile.html',
+                controller: 'profileCtrl'
+            }
+        }
+    })
 
-  .state('ezrGarage.offers', {
-    url: '/offers',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/offers.html',
-        controller: 'offersCtrl'
-      }
-    }
-  })
+    .state('ezrGarage.payment', {
+        url: '/payment',
+        authOnly: true,
+        views: {
+            'side-menu21': {
+                templateUrl: 'templates/payment.html',
+                controller: 'paymentCtrl'
+            }
+        }
+    })
 
-  .state('ezrGarage.notifications', {
-    url: '/notifications',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/notifications.html',
-        controller: 'notificationsCtrl'
-      }
-    }
-  })
+    .state('ezrGarage.promotions', {
+        url: '/promotions',
+        authOnly: true,
+        views: {
+            'side-menu21': {
+                templateUrl: 'templates/promotions.html',
+                controller: 'promotionsCtrl'
+            }
+        }
+    })
 
-  .state('ezrGarage.beAVendor', {
-    url: '/vendor',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/beAVendor.html',
-        controller: 'beAVendorCtrl'
-      }
-    }
-  })
+    .state('ezrGarage.offers', {
+        url: '/offers',
+        authOnly: true,
+        views: {
+            'side-menu21': {
+                templateUrl: 'templates/offers.html',
+                controller: 'offersCtrl'
+            }
+        }
+    })
 
-  .state('ezrGarage.help', {
-    url: '/help',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/help.html',
-        controller: 'helpCtrl'
-      }
-    }
-  })
+    .state('ezrGarage.notifications', {
+        url: '/notifications',
+        authOnly: true,
+        views: {
+            'side-menu21': {
+                templateUrl: 'templates/notifications.html',
+                controller: 'notificationsCtrl'
+            }
+        }
+    })
 
-  .state('ezrGarage.about', {
-    url: '/about',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/about.html',
-        controller: 'aboutCtrl'
-      }
-    }
-  })
+    .state('ezrGarage.beAVendor', {
+        url: '/vendor',
+        authOnly: false,
+        views: {
+            'side-menu21': {
+                templateUrl: 'templates/beAVendor.html',
+                controller: 'beAVendorCtrl'
+            }
+        }
+    })
 
-  .state('ezrGarage.rateCards', {
-    url: '/ratecards',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/rateCards.html',
-        controller: 'rateCardsCtrl'
-      }
-    }
-  })
+    .state('ezrGarage.help', {
+        url: '/help',
+        authOnly: false,
+        views: {
+            'side-menu21': {
+                templateUrl: 'templates/help.html',
+                controller: 'helpCtrl'
+            }
+        }
+    })
 
-  .state('ezrGarage.support', {
-    url: '/support',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/support.html',
-        controller: 'supportCtrl'
-      }
-    }
-  })
+    .state('ezrGarage.about', {
+        url: '/about',
+        authOnly: false,
+        views: {
+            'side-menu21': {
+                templateUrl: 'templates/about.html',
+                controller: 'aboutCtrl'
+            }
+        }
+    })
 
-  .state('ezrGarage.serviceHistory', {
-    url: '/servicehistory',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/serviceHistory.html',
-        controller: 'serviceHistoryCtrl'
-      }
-    }
-  })
+    .state('ezrGarage.rateCards', {
+        url: '/ratecards',
+        authOnly: false,
+        views: {
+            'side-menu21': {
+                templateUrl: 'templates/rateCards.html',
+                controller: 'rateCardsCtrl'
+            }
+        }
+    })
 
-$urlRouterProvider.otherwise('/menuitems/dashboard')
+    .state('ezrGarage.support', {
+        url: '/support',
+        authOnly: false,
+        views: {
+            'side-menu21': {
+                templateUrl: 'templates/support.html',
+                controller: 'supportCtrl'
+            }
+        }
+    })
 
-  
-
+    .state('ezrGarage.serviceHistory', {
+        url: '/servicehistory',
+        authOnly: true,
+        views: {
+            'side-menu21': {
+                templateUrl: 'templates/serviceHistory.html',
+                controller: 'serviceHistoryCtrl'
+            }
+        }
+    })
+    $urlRouterProvider.otherwise('/menuitems/dashboard')
 });

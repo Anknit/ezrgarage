@@ -7,6 +7,7 @@
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 if (user != null) {
+                    authVar.isLogin = true;
                     authVar.displayName = user.displayName;
                     authVar.email = user.email;
                     authVar.photoUrl = user.photoURL;
