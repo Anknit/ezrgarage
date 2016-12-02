@@ -86,8 +86,7 @@ angular.module('ezr.services', [])
     function _googleSignIn() {
         var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithRedirect(provider);
-        return firebase.auth().getRedirectResult().then(function (result) {
-            return result;
+        firebase.auth().getRedirectResult().then(function (result) {
         }).catch(function (error) {
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -99,8 +98,7 @@ angular.module('ezr.services', [])
     function _facebookSignIn() {
         var provider = new firebase.auth.FacebookAuthProvider();
         firebase.auth().signInWithRedirect(provider);
-        return firebase.auth().getRedirectResult().then(function (result) {
-            return result;
+        firebase.auth().getRedirectResult().then(function (result) {
         }).catch(function (error) {
             var errorCode = error.code;
             var errorMessage = error.message;

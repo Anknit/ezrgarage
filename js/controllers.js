@@ -20,13 +20,7 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, authService, $location) {
-    $scope.googleSignIn = function () {
-        authService.googleSignIn().then(function(result){
-            if(result.credential) {
-                $location.path('/');
-            }
-        });
-    }
+    $scope.googleSignIn = authService.googleSignIn;
     $scope.facebookSignIn = authService.facebookSignIn;
 }])
    
@@ -38,12 +32,11 @@ function ($scope, $stateParams) {
 
 }])
    
-.controller('settingsCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('settingsCtrl', ['$scope', '$stateParams', 'authService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
-
-
+function ($scope, $stateParams, authService) {
+    $scope.signout = authService.signOut;
 }])
    
 .controller('fAQsCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
