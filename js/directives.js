@@ -1,4 +1,4 @@
-angular.module('app.directives', [])
+angular.module('ezr.directives', [])
 
 .directive('blankDirective', [function(){
 
