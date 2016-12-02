@@ -134,4 +134,8 @@ function ($scope, $stateParams) {
 
 
 }])
- 
+
+.controller('vehicleTypeCtrl', ['$scope', '$stateParams',
+function ($scope, $stateParams) {
+    
+}])

@@ -186,5 +186,13 @@ angular.module('ezr.routes', [])
             }
         }
     })
+    
+    .state('vehicles', {
+        url: '/vehicleType/:type',
+        authOnly: true,
+        templateUrl: 'templates/vehicleType.html',
+        controller: 'vehicleTypeCtrl'
+    })
+    
     $urlRouterProvider.otherwise('/menuitems/dashboard')
 });
