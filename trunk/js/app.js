@@ -7,7 +7,7 @@ angular.module('ezr', ['ionic', 'ezr.controllers', 'ezr.routes', 'ezr.directives
 
 })
 
-.run(function ($ionicPlatform, $rootScope, $location) {
+.run(function ($ionicPlatform, $rootScope, $location, $ionicHistory, $state) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -44,16 +44,27 @@ angular.module('ezr', ['ionic', 'ezr.controllers', 'ezr.routes', 'ezr.directives
                             photoUrl: profile.photoURL
                         });
                     });
-                    $rootScope.appVars = window.appvars || {};
                 }
             } else {
-                // No user is signed in.
+                authVar.isLogin = false;
             }
+            $rootScope.appVars = window.appvars || {};
+            $ionicHistory.nextViewOptions({
+                disableAnimate: true,
+                disableBack: true,
+                historyRoot: true
+            });
+            $ionicHistory.clearHistory();
+            $state.go('ezrGarage.dashboard');
+            $ionicHistory.clearHistory();
         });
     })(window.firebase, window.appvars.auth, window.appvars.profile);
-    $rootScope.$on('$stateChangeStart', function(event, toState, fromState){
-        if(toState.authOnly && !$rootScope.appVars.auth.isLogin) {
-            $location.path('/');
+    $rootScope.$on('$stateChangeStart', function (event, toState, fromState) {
+        if(toState.name == 'ezrGarage.login' && $rootScope.appVars && $rootScope.appVars.auth && $rootScope.appVars.auth.isLogin) {
+            $state.go('ezrGarage.dashboard');
+        }
+        else if (toState.authOnly && !$rootScope.appVars.auth.isLogin) {
+            $state.go('ezrGarage.dashboard');
         }
     });
 
