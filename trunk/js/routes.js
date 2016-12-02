@@ -1,4 +1,4 @@
-angular.module('app.routes', [])
+angular.module('ezr.routes', [])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
