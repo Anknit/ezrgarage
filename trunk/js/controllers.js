@@ -137,5 +137,41 @@ function ($scope, $stateParams) {
 
 .controller('vehicleTypeCtrl', ['$scope', '$stateParams',
 function ($scope, $stateParams) {
-    
+    switch($stateParams.type) {
+        case 'twowheelers':
+            break;
+        case 'cars':
+            break;
+        case 'others':
+            break;
+        default:
+            break;
+    }
+    var vehicleList = {
+        twowheelers: [
+            'Motorcycle',
+            'Sportsbike',
+            'Activa',
+            'Scooty',
+            'Bullet',
+            'Other'
+        ], cars: [
+            'WagonR',
+            'Swift Dzire',
+            'Nano',
+            'Van',
+            'Audi',
+            'BMW',
+            'Other'
+        ], others: [
+            'Truck',
+            'Bus',
+            'Traveller',
+            'Auto',
+            'Tractor',
+            'Tata Ace',
+            'Other'
+        ]};
+    $scope.vehicles = vehicleList[$stateParams.type];
+    $scope.choice = null;
 }])
