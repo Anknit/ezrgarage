@@ -1,10 +1,7 @@
 angular.module('ezr', ['ionic', 'ezr.controllers', 'ezr.routes', 'ezr.directives', 'ezr.services', ])
 
 .config(function ($ionicConfigProvider, $sceDelegateProvider) {
-
-
     $sceDelegateProvider.resourceUrlWhitelist(['self', '*://www.youtube.com/**', '*://player.vimeo.com/video/**']);
-
 })
 
 .run(function ($ionicPlatform, $rootScope, $location, $ionicHistory, $state) {

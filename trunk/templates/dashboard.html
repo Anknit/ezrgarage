@@ -1,3 +1,20 @@
-<ion-view title="Dashboard" id="page1">
-  <ion-content padding="true" class="has-header"></ion-content>
+<ion-view title="Book Service" id="page1">
+    <ion-content padding="true" class="has-header">
+        <div class="card">
+            <div class="item item-text-wrap text-center">
+                <h3>
+                    Choose Service Type
+                </h3>
+            </div>
+        </div>
+        <div class="card">
+            <a ui-sref="vehicles({type: 'twowheelers'})" class="button button-positive button-block">Two-wheelers</a>
+        </div>
+        <div class="card">
+            <a ui-sref="vehicles({type: 'cars'})" class="button button-positive button-block">Cars</a>
+        </div>
+        <div class="card">
+            <a ui-sref="vehicles({type: 'others'})" class="button button-positive button-block">Others</a>
+        </div>
+    </ion-content>
 </ion-view>
