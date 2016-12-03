@@ -7,14 +7,8 @@
                 </h3>
             </div>
         </div>
-        <div class="card">
-            <a ui-sref="vehicles({type: 'twowheelers'})" class="button button-positive button-block">Two-wheelers</a>
-        </div>
-        <div class="card">
-            <a ui-sref="vehicles({type: 'cars'})" class="button button-positive button-block">Cars</a>
-        </div>
-        <div class="card">
-            <a ui-sref="vehicles({type: 'others'})" class="button button-positive button-block">Others</a>
+        <div class="card" data-ng-repeat='type in vehicleType'>
+            <button class="button button-positive button-block" data-ng-click="showVehicleList(type)">{{type.label}}</button>
         </div>
     </ion-content>
 </ion-view>

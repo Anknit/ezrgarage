@@ -194,5 +194,12 @@ angular.module('ezr.routes', [])
         controller: 'vehicleTypeCtrl'
     })
     
+    .state('searchService', {
+        url: '/searchService/:vehicletype/:vehicle',
+        authOnly: true,
+        templateUrl: 'templates/searchService.html',
+        controller: 'searchServiceCtrl'
+    })
+    
     $urlRouterProvider.otherwise('/menuitems/dashboard')
 });

@@ -1,10 +1,22 @@
 angular.module('ezr.controllers', [])
   
-.controller('dashboardCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('dashboardCtrl', ['$scope', '$stateParams', '$location', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
-
+function ($scope, $stateParams, $location) {
+    $scope.vehicleType = [{
+        label:'Two wheelers',
+        path:'vehicleType/twowheelers'
+    }, {
+        label:'Cars',
+        path:'vehicleType/cars'
+    }, {
+        label:'Others',
+        path:'vehicleType/others'
+    }];
+    $scope.showVehicleList = function (vehicletype) {
+        $location.path(vehicletype.path);
+    };
 
 }])
    
@@ -135,9 +147,18 @@ function ($scope, $stateParams) {
 
 }])
 
-.controller('vehicleTypeCtrl', ['$scope', '$stateParams',
+.controller('searchServiceCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
-    switch($stateParams.type) {
+console.log($stateParams);
+
+}])
+
+.controller('vehicleTypeCtrl', ['$scope', '$stateParams', '$location',
+function ($scope, $stateParams, $location) {
+    $scope.vehicleType = $stateParams.type;
+    switch($scope.vehicleType) {
         case 'twowheelers':
             break;
         case 'cars':
@@ -172,6 +193,14 @@ function ($scope, $stateParams) {
             'Tata Ace',
             'Other'
         ]};
-    $scope.vehicles = vehicleList[$stateParams.type];
-    $scope.choice = null;
+    $scope.choice = {};
+    $scope.otherVehicle = '';
+    $scope.vehicles = vehicleList[$scope.vehicleType];
+    $scope.searchService = function () {
+        var searchParam = $scope.vehicleType + '/' + $scope.choice.value;
+        if($scope.choice.value == 'Other') {
+            searchParam = searchParam + '-' + $scope.otherVehicle;
+        }
+        $location.path('searchService/' + searchParam);
+    };
 }])

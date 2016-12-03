@@ -2,16 +2,16 @@
     <ion-content padding="true" class="has-header">
         <div class="card">
             <ion-list>
-                <ion-radio data-ng-model="$parent.choice" data-ng-repeat="item in vehicles" data-ng-value="item">{{item}}</ion-radio>
+                <ion-radio data-ng-model="$parent.choice.value" data-ng-repeat="item in vehicles" data-ng-value="item">{{item}}</ion-radio>
             </ion-list>
         </div>
-        <div class="card" data-ng-show="choice == 'Other'">
+        <div class="card" data-ng-show="choice.value == 'Other'">
             <label class="item item-input">
-                <input type="text" placeholder="Vehicle Name" data-ng-model="otherVehicle" data-ng-init="otherVehicle = ''">
+                <input type="text" placeholder="Vehicle Name" data-ng-model="$parent.otherVehicle" data-ng-init="$parent.otherVehicle = ''">
             </label>
         </div>
         <div class="text-center">
-            <button type="button" class="button button-calm"  data-ng-disabled="choice == null || (choice == 'Other' && otherVehicle == '')">Proceed</button>
+            <button type="button" class="button button-calm"  data-ng-disabled="choice.value == null || (choice.value == 'Other' && otherVehicle == '')" data-ng-click="searchService()">Proceed</button>
         </div>
     </ion-content>
 </ion-view>
