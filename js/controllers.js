@@ -157,6 +157,12 @@ console.log($stateParams);
 
 .controller('vehicleTypeCtrl', ['$scope', '$stateParams', '$location',
 function ($scope, $stateParams, $location) {
+    var databaseRef = window.firebase.database();
+    var newEntryKey = databaseRef.ref('ezr_vehicle_list_by_category/category_gamma/').push().key;
+    var updates = {}
+    updates['ezr_vehicle_list_by_category/category_gamma/' + newEntryKey] =  {"label":"Tractor","urlpath":"tractor"};
+    var a = databaseRef.ref().update(updates);
+    console.log(a);
     $scope.vehicleType = $stateParams.type;
     switch($scope.vehicleType) {
         case 'twowheelers':
