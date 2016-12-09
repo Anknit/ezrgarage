@@ -1,21 +1,16 @@
 angular.module('ezr.controllers', [])
   
-.controller('dashboardCtrl', ['$scope', '$stateParams', '$location', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('dashboardCtrl', ['$scope', '$stateParams', '$location', 'firebaseApi', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $location) {
-    $scope.vehicleType = [{
-        label:'Two wheelers',
-        path:'vehicleType/twowheelers'
-    }, {
-        label:'Cars',
-        path:'vehicleType/cars'
-    }, {
-        label:'Others',
-        path:'vehicleType/others'
-    }];
+function ($scope, $stateParams, $location, firebaseApi) {
+    var dbObj = new firebaseApi.data();
+    $scope.vehicleType = {};
+    dbObj.DB_Read('vehicles/vehicleCategories', function(response) {
+        $scope.vehicleType = response.val();
+    });
     $scope.showVehicleList = function (vehicletype) {
-        $location.path(vehicletype.path);
+        $location.path('vehicleType/' + vehicletype);
     };
 
 }])
@@ -28,12 +23,24 @@ function ($scope, $stateParams) {
 
 }])
    
-.controller('loginCtrl', ['$scope', '$stateParams', 'authService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('loginCtrl', ['$scope', '$stateParams', 'authService', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, authService, $location) {
-    $scope.googleSignIn = authService.googleSignIn;
-    $scope.facebookSignIn = authService.facebookSignIn;
+function ($scope, $stateParams, authService, $http) {
+    function signinCallback (result) {
+        debugger;
+        $http({method:'GET', url:'http://localhost:8080/auth/verifyToken?' + result.credential.idToken}).then(function(response){
+            debugger;
+        }, function(err){
+            debugger;
+        });
+    }
+    $scope.googleSignIn = function () {
+        authService.googleSignIn(signinCallback);
+    }
+    $scope.facebookSignIn = function () {
+        authService.facebookSignIn(signinCallback);
+    }
 }])
    
 .controller('signupCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller

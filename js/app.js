@@ -21,6 +21,7 @@ angular.module('ezr', ['ionic', 'ezr.controllers', 'ezr.routes', 'ezr.directives
     });
     window.firebase = window.firebase || {};
     window.appvars = window.appvars || {};
+    window.appvars.dbRoot = window.ezr.ENVIRONMENT + '/' + window.ezr.DB_VERSION + '/';
     window.appvars.auth = window.appvars.auth || {};
     window.appvars.profile = window.appvars.profile || [];
     (function (firebase, authVar, profileVar) {
