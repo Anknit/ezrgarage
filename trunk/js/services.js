@@ -83,10 +83,11 @@ angular.module('ezr.services', [])
         });
     }
 
-    function _googleSignIn() {
+    function _googleSignIn(callback) {
         var provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithRedirect(provider);
-        firebase.auth().getRedirectResult().then(function (result) {
+        provider.addScope('https://www.googleapis.com/auth/userinfo.profile');
+        firebase.auth().signInWithPopup(provider).then(function(result){
+            callback(result);
         }).catch(function (error) {
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -95,10 +96,10 @@ angular.module('ezr.services', [])
         });
     }
 
-    function _facebookSignIn() {
+    function _facebookSignIn(callback) {
         var provider = new firebase.auth.FacebookAuthProvider();
-        firebase.auth().signInWithRedirect(provider);
-        firebase.auth().getRedirectResult().then(function (result) {
+        firebase.auth().signInWithPopup(provider).then(function(result){
+            callback(result);
         }).catch(function (error) {
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -121,4 +122,42 @@ angular.module('ezr.services', [])
     authService.facebookSignIn = _facebookSignIn;
 
     return authService;
+}])
+
+.service('firebaseApi', [function () {
+    var firebaseAPI = {};
+
+    function db() {
+        this.databaseObj = window.firebase.database();
+        this.dbRoot = window.appvars.dbRoot;
+    };
+    
+    db.prototype.DB_Append = function (path, data, callback) {
+        var newDbEntry = this.databaseObj.ref(this.dbRoot + path).push();
+        newDbEntry.set(data, callback);
+    }
+
+    db.prototype.DB_Insert = function (path, data, callback) {
+        this.databaseObj.ref(this.dbRoot + path).set(data, callback);
+    }
+
+    db.prototype.DB_Update = function (path, data, callback) {
+        this.databaseObj.ref(this.dbRoot + path).update(data, callback);
+    }
+
+    db.prototype.DB_Read = function (path, callback) {
+        this.databaseObj.ref(this.dbRoot + path).once("value", callback);
+    }
+
+    db.prototype.DB_Watch = function (path, callback) {
+        this.databaseObj.ref(this.dbRoot + path).on("value", callback);
+    }
+
+    db.prototype.DB_StopWatch = function (path, callback) {
+        this.databaseObj.ref(this.dbRoot + path).off("value", callback);
+    }
+    
+    firebaseAPI.data = db;
+    
+    return firebaseAPI;
 }]);

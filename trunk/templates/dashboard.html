@@ -7,8 +7,8 @@
                 </h3>
             </div>
         </div>
-        <div class="card" data-ng-repeat='type in vehicleType'>
-            <button class="button button-positive button-block" data-ng-click="showVehicleList(type)">{{type.label}}</button>
+        <div class="card" data-ng-repeat='(type, value) in vehicleType'>
+            <button class="button button-positive button-block" data-ng-click="showVehicleList(type)">{{value.label}}</button>
         </div>
     </ion-content>
 </ion-view>
