@@ -1,10 +1,11 @@
 angular.module('ezr', ['ionic', 'ezr.controllers', 'ezr.routes', 'ezr.directives', 'ezr.services', ])
 
+.value('appvars', {})
 .config(function ($ionicConfigProvider, $sceDelegateProvider) {
     $sceDelegateProvider.resourceUrlWhitelist(['self', '*://www.youtube.com/**', '*://player.vimeo.com/video/**']);
 })
 
-.run(function ($ionicPlatform, $rootScope, $location, $ionicHistory, $state) {
+.run(function ($ionicPlatform, $rootScope, $location, $ionicHistory, $state, $http, appvars) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -16,14 +17,11 @@ angular.module('ezr', ['ionic', 'ezr.controllers', 'ezr.routes', 'ezr.directives
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
-
-        $rootScope.appVars = window.appVars || {};
     });
     window.firebase = window.firebase || {};
-    window.appvars = window.appvars || {};
-    window.appvars.dbRoot = window.ezr.ENVIRONMENT + '/' + window.ezr.DB_VERSION + '/';
-    window.appvars.auth = window.appvars.auth || {};
-    window.appvars.profile = window.appvars.profile || [];
+    appvars.dbRoot = window.ezr.ENVIRONMENT + '/' + window.ezr.DB_VERSION + '/';
+    appvars.auth = appvars.auth || {};
+    appvars.profile = appvars.profile || [];
     (function (firebase, authVar, profileVar) {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -46,7 +44,6 @@ angular.module('ezr', ['ionic', 'ezr.controllers', 'ezr.routes', 'ezr.directives
             } else {
                 authVar.isLogin = false;
             }
-            $rootScope.appVars = window.appvars || {};
             $ionicHistory.nextViewOptions({
                 disableAnimate: true,
                 disableBack: true,
@@ -56,12 +53,12 @@ angular.module('ezr', ['ionic', 'ezr.controllers', 'ezr.routes', 'ezr.directives
             $state.go('ezrGarage.dashboard');
             $ionicHistory.clearHistory();
         });
-    })(window.firebase, window.appvars.auth, window.appvars.profile);
+    })(window.firebase, appvars.auth, appvars.profile);
     $rootScope.$on('$stateChangeStart', function (event, toState, fromState) {
-        if(toState.name == 'ezrGarage.login' && $rootScope.appVars && $rootScope.appVars.auth && $rootScope.appVars.auth.isLogin) {
+        if(toState.name == 'ezrGarage.login' && appvars && appvars.auth && appvars.auth.isLogin) {
             $state.go('ezrGarage.dashboard');
         }
-        else if (toState.authOnly && !$rootScope.appVars.auth.isLogin) {
+        else if (toState.authOnly && !appvars.auth.isLogin) {
             $state.go('ezrGarage.dashboard');
         }
     });

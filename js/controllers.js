@@ -23,23 +23,29 @@ function ($scope, $stateParams) {
 
 }])
    
-.controller('loginCtrl', ['$scope', '$stateParams', 'authService', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('loginCtrl', ['$scope', '$stateParams', 'authService', '$http', 'appvars', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, authService, $http) {
-    function signinCallback (result) {
-        debugger;
-        $http({method:'GET', url:'http://localhost:8080/auth/verifyToken?' + result.credential.idToken}).then(function(response){
-            debugger;
-        }, function(err){
-            debugger;
+function ($scope, $stateParams, authService, $http, appvars) {
+    function verifyToken() {
+        firebase.auth().currentUser.getToken(true).then(function(idToken) {
+            $http({method:'GET', url:'http://localhost:8080/user/verifyToken/' + idToken}).then(function(response){
+                if(response.data && response.data.tokenValid) {
+                    appvars.auth.token = idToken;
+                    appvars.auth.phone_verified = response.data.mobile_verified;
+                    appvars.auth.email_verified = response.data.email_verified;
+                    
+                } else {
+                    appvars.auth.isLogin = false;
+                }
+            });
         });
     }
     $scope.googleSignIn = function () {
-        authService.googleSignIn(signinCallback);
+        authService.googleSignIn(verifyToken);
     }
     $scope.facebookSignIn = function () {
-        authService.facebookSignIn(signinCallback);
+        authService.facebookSignIn(verifyToken);
     }
 }])
    
@@ -164,12 +170,6 @@ console.log($stateParams);
 
 .controller('vehicleTypeCtrl', ['$scope', '$stateParams', '$location',
 function ($scope, $stateParams, $location) {
-    var databaseRef = window.firebase.database();
-    var newEntryKey = databaseRef.ref('ezr_vehicle_list_by_category/category_gamma/').push().key;
-    var updates = {}
-    updates['ezr_vehicle_list_by_category/category_gamma/' + newEntryKey] =  {"label":"Tractor","urlpath":"tractor"};
-    var a = databaseRef.ref().update(updates);
-    console.log(a);
     $scope.vehicleType = $stateParams.type;
     switch($scope.vehicleType) {
         case 'twowheelers':
