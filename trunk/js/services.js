@@ -1,6 +1,6 @@
 angular.module('ezr.services', [])
 
-.service('authService', [function () {
+.service('authService', ['$http', function ($http) {
     var authService = {};
 
     function _updateUserProfile(profileObj) {
@@ -107,6 +107,14 @@ angular.module('ezr.services', [])
             var credential = error.credential;
         });
     }
+    
+    function _verifyAuthToken(callback) {
+        firebase.auth().currentUser.getToken(true).then(function(idToken) {
+            $http({method:'GET', url:'http://localhost:8080/user/verifyToken/' + idToken}).then(function(response){
+                callback(idToken, response);
+            });
+        });
+    }
 
 
     authService.create = _createUser;
@@ -120,16 +128,17 @@ angular.module('ezr.services', [])
     authService.signOut = _signOut;
     authService.googleSignIn = _googleSignIn;
     authService.facebookSignIn = _facebookSignIn;
+    authService.verifyToken = _verifyAuthToken;
 
     return authService;
 }])
 
-.service('firebaseApi', [function () {
+.service('firebaseApi', ['appvars', function (appvars) {
     var firebaseAPI = {};
 
     function db() {
         this.databaseObj = window.firebase.database();
-        this.dbRoot = window.appvars.dbRoot;
+        this.dbRoot = appvars.dbRoot;
     };
     
     db.prototype.DB_Append = function (path, data, callback) {
