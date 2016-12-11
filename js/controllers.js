@@ -23,22 +23,22 @@ function ($scope, $stateParams) {
 
 }])
    
-.controller('loginCtrl', ['$scope', '$stateParams', 'authService', '$http', 'appvars', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('loginCtrl', ['$scope', 'authService', 'appvars', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, authService, $http, appvars) {
+function ($scope, authService, appvars) {
     function verifyToken() {
-        firebase.auth().currentUser.getToken(true).then(function(idToken) {
-            $http({method:'GET', url:'http://localhost:8080/user/verifyToken/' + idToken}).then(function(response){
-                if(response.data && response.data.tokenValid) {
-                    appvars.auth.token = idToken;
-                    appvars.auth.phone_verified = response.data.mobile_verified;
-                    appvars.auth.email_verified = response.data.email_verified;
-                    
-                } else {
-                    appvars.auth.isLogin = false;
-                }
-            });
+        authService.verifyToken(function(idToken, response) {
+            if(response.data && response.data.tokenValid) {
+                appvars.auth.token = idToken;
+                appvars.auth.phone_verified = response.data.mobile_verified;
+                appvars.auth.email_verified = response.data.email_verified;
+                window.localStorage.setItem('user_id_token', idToken);
+                window.localStorage.setItem('mobile_verified', response.data.mobile_verified);
+                window.localStorage.setItem('email_verified', response.data.email_verified);
+            } else {
+                appvars.auth.isLogin = false;
+            }
         });
     }
     $scope.googleSignIn = function () {
